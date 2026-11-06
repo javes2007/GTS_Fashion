@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/conectar.php';
-if (!empty($_SESSION['administrador_id'])) { header('Location: mostrar_datos.php'); exit; }
+if (!empty($_SESSION['administrador_id'])) { header('Location: admin_inicio.php'); exit; }
 if (!empty($_SESSION['cliente_id'])) { header('Location: index.php'); exit; }
 $error=''; $destino=$_GET['next']??$_POST['next']??'';
 if(!in_array($destino,array('checkout'),true))$destino='';
@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $identificador=trim($_POST['identificador']??'');$clave=$_POST['clave']??'';
     $db=conexion();$stmt=$db->prepare('SELECT id,usuario,contrasena FROM administradores WHERE usuario=? LIMIT 1');
     $stmt->bind_param('s',$identificador);$stmt->execute();$admin=$stmt->get_result()->fetch_assoc();$stmt->close();
-    if($admin&&password_verify($clave,$admin['contrasena'])){session_regenerate_id(true);$_SESSION['administrador_id']=(int)$admin['id'];$_SESSION['administrador_usuario']=$admin['usuario'];$db->close();header('Location: mostrar_datos.php');exit;}
+    if($admin&&password_verify($clave,$admin['contrasena'])){session_regenerate_id(true);$_SESSION['administrador_id']=(int)$admin['id'];$_SESSION['administrador_usuario']=$admin['usuario'];$db->close();header('Location: admin_inicio.php');exit;}
     // Compatibilidad: los clientes antiguos también pueden entrar temporalmente con su correo.
     $stmt=$db->prepare('SELECT id,usuario,nombre,contrasena FROM clientes WHERE usuario=? OR correo=? LIMIT 1');
     $stmt->bind_param('ss',$identificador,$identificador);$stmt->execute();$cliente=$stmt->get_result()->fetch_assoc();$stmt->close();$db->close();
