@@ -20,7 +20,7 @@ $admin_pagina=basename($_SERVER['PHP_SELF']??'');
 <a class="submenu-gestion <?php echo $admin_pagina==='clientes.php'?'activo':'';?>" href="clientes.php">Clientes</a>
 <a class="menu-seccion <?php echo $admin_pagina==='pedidos.php'?'activo':'';?>" href="pedidos.php">Pedidos</a>
 <a class="menu-seccion <?php echo $admin_pagina==='informes.php'?'activo':'';?>" href="informes.php">Ventas e informes</a>
-<a class="menu-seccion" href="index.php" target="_blank" rel="noopener">Ver tienda ↗</a>
+<a class="menu-seccion" href="index.php">Ver tienda ↗</a>
 </nav>
 <div class="panel-pie"><span class="admin-avatar"><?php echo e(mb_strtoupper(mb_substr($admin_usuario,0,1)));?></span><span><?php echo e($admin_usuario);?></span><a href="logout.php" title="Cerrar sesión" aria-label="Cerrar sesión">Salir</a></div>
 </aside><div class="zona-gestion">
