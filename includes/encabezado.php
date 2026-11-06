@@ -2,13 +2,15 @@
 $titulo=isset($titulo)?$titulo:'GTS Fashion';$es_admin=!empty($_SESSION['administrador_id']);$es_cliente=!empty($_SESSION['cliente_id']);
 $carrito_total=0;if(!empty($_SESSION['carrito'])&&is_array($_SESSION['carrito']))foreach($_SESSION['carrito'] as $cantidad)$carrito_total+=(int)$cantidad;
 $admin_usuario=$_SESSION['administrador_usuario']??'Administrador';
-$admin_pagina=basename($_SERVER['PHP_SELF']??'');
+$admin_pagina=basename($_SERVER['PHP_SELF']??'');$admin_ultimo_pedido=0;$admin_pendientes=0;$foto_cliente='';
+if($es_admin){$n=conexion();$q=$n->query("SELECT COALESCE(MAX(id),0) ultimo, COALESCE(SUM(estado='Pendiente'),0) pendientes FROM pedidos");if($q){$v=$q->fetch_assoc();$admin_ultimo_pedido=(int)$v['ultimo'];$admin_pendientes=(int)$v['pendientes'];}$n->close();}
+if($es_cliente){$n=conexion();$s=$n->prepare('SELECT foto_perfil FROM clientes WHERE id=?');$s->bind_param('i',$_SESSION['cliente_id']);$s->execute();$v=$s->get_result()->fetch_assoc();$foto_cliente=$v['foto_perfil']??'';$s->close();$n->close();}
 ?>
 <!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#fff0f8"><title><?php echo e($titulo);?> | GTS Fashion</title><link rel="stylesheet" href="styles.css"></head>
 <body class="<?php echo $es_admin?'vista-gestion':'vista-tienda';?>">
 <?php if($es_admin):?>
 <aside class="panel-lateral">
-<a class="panel-simbolo" href="admin_inicio.php" aria-label="GTS Fashion inicio">GTS</a>
+<a class="panel-simbolo" href="admin_inicio.php" aria-label="GTS Fashion inicio">GTS</a><a class="admin-alerta" href="pedidos.php" id="admin-alerta" data-ultimo="<?php echo $admin_ultimo_pedido;?>" aria-label="Notificaciones de compras"><span>♧</span> Notificaciones <b id="admin-alerta-num"><?php echo $admin_pendientes;?></b></a>
 <nav class="menu-gestion" aria-label="Menú de gestión">
 <a class="menu-inicio <?php echo $admin_pagina==='admin_inicio.php'?'activo':'';?>" href="admin_inicio.php">Inicio</a>
 <div class="grupo-menu">Sitio web</div>
@@ -27,6 +29,6 @@ $admin_pagina=basename($_SERVER['PHP_SELF']??'');
 <?php else:?>
 <header class="site-header"><nav class="nav-principal" aria-label="Navegación principal"><a href="index.php">Tienda</a><a href="index.php#catalogo">Catálogo</a><a href="index.php#acerca">Acerca de</a><a href="index.php#contacto">Contacto</a></nav>
 <a class="marca" href="index.php">GTS Fashion</a><div class="acciones-header">
-<?php if($es_cliente):?><a href="perfil.php">Mi perfil</a><a href="mis_pedidos.php">Mis pedidos</a><a href="logout.php">Salir</a><?php else:?><a href="login.php">Iniciar sesión</a><?php endif;?>
+<?php if($es_cliente):?><a class="cliente-avatar-header" href="perfil.php" aria-label="Mi perfil"><?php if($foto_cliente):?><img src="<?php echo e($foto_cliente);?>" alt=""><?php else:?><?php echo e(mb_strtoupper(mb_substr($_SESSION['cliente_nombre']??'U',0,1)));?><?php endif;?></a><a href="perfil.php">Mi perfil</a><a href="mis_pedidos.php">Mis pedidos</a><a href="logout.php">Salir</a><?php else:?><a href="login.php">Iniciar sesión</a><?php endif;?>
 <a class="icono-social" href="#contacto" aria-label="Instagram">◎</a><a class="icono-social" href="#contacto" aria-label="Red social">♥</a><a class="carrito-resumen" href="carrito.php" aria-label="Carrito de compras">♧ <span><?php echo $carrito_total;?></span></a></div></header>
 <?php endif;?>
