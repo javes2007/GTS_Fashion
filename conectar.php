@@ -1,6 +1,17 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.use_strict_mode', '1');
+    // "Recordarme" conserva la sesión durante 30 días; sin marcar, usa sesión normal.
+    ini_set('session.gc_maxlifetime', '2592000');
+    $recordar = !empty($_POST['recordarme']);
+    $duracion = $recordar ? 60 * 60 * 24 * 30 : 0;
+    session_set_cookie_params(array(
+        'lifetime' => $duracion,
+        'path' => '/',
+        'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ));
     session_start();
 }
 function conexion() {
