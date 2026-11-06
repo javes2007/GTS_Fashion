@@ -3,7 +3,7 @@ require_once __DIR__.'/conectar.php'; exigir_cliente();
 $db=conexion();$id=(int)$_SESSION['cliente_id'];$error='';$mensaje='';
 if($_SERVER['REQUEST_METHOD']==='POST'){
     $usuario=trim($_POST['usuario']??'');$nombre=trim($_POST['nombre']??'');$apellidos=trim($_POST['apellidos']??'');
-    $correo=trim($_POST['correo']??'');$telefono=trim($_POST['telefono']??'');
+    $correo=trim($_POST['correo']??'');if($correo==='')$correo=null;$telefono=trim($_POST['telefono']??'');
     $nueva=$_POST['nueva_clave']??'';$confirmar=$_POST['confirmar_clave']??'';
     if(!preg_match('/^[a-zA-Z0-9_.-]{3,30}$/',$usuario))$error='El usuario debe tener entre 3 y 30 caracteres válidos.';
     elseif($correo!==''&&!filter_var($correo,FILTER_VALIDATE_EMAIL))$error='El correo electrónico no es válido.';
