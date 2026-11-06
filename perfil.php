@@ -20,6 +20,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             }
         }
     }
+    $accion_foto=isset($_POST['eliminar_foto'])||(isset($_FILES['foto_perfil'])&&$_FILES['foto_perfil']['error']!==UPLOAD_ERR_NO_FILE);
+    if(!$accion_foto){
     $usuario=trim($_POST['usuario']??'');$nombre=trim($_POST['nombre']??'');$apellidos=trim($_POST['apellidos']??'');
     $correo=trim($_POST['correo']??'');if($correo==='')$correo=null;$telefono=trim($_POST['telefono']??'');
     $nueva=$_POST['nueva_clave']??'';$confirmar=$_POST['confirmar_clave']??'';
@@ -32,6 +34,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         else{$stmt=$db->prepare('UPDATE clientes SET usuario=?,nombre=?,apellidos=?,correo=?,telefono=? WHERE id=?');$stmt->bind_param('sssssi',$usuario,$nombre,$apellidos,$correo,$telefono,$id);}
         if($stmt->execute()){$_SESSION['cliente_nombre']=$nombre?:$usuario;$mensaje='Tu perfil fue actualizado correctamente.';}else{$error=$db->errno===1062?'Ese nombre de usuario o correo ya está registrado.':'No se pudo actualizar el perfil.';}
         $stmt->close();
+    }
     }
 }
 $stmt=$db->prepare('SELECT usuario,nombre,apellidos,correo,telefono,foto_perfil FROM clientes WHERE id=?');$stmt->bind_param('i',$id);$stmt->execute();$cliente=$stmt->get_result()->fetch_assoc();$stmt->close();
