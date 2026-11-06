@@ -854,3 +854,116 @@ td.sin-precio {
  .registro-box,.checkout-box{padding:18px}
 }
 @media(max-width:380px){.productos{grid-template-columns:1fr}}
+
+
+/* Panel de administración tipo constructor de sitios: conserva paleta GTS */
+.panel-lateral{width:246px;padding:22px 17px 16px;background:rgba(255,255,255,.94);border-right:1px solid var(--linea);box-shadow:8px 0 28px -26px var(--ciruela)}
+.panel-simbolo{width:100%;justify-content:flex-start;padding-left:8px;margin-bottom:30px;font-family:var(--serif);font-size:1.35rem;letter-spacing:.12em;color:var(--ciruela)}
+.menu-gestion{gap:3px}
+.menu-gestion a{display:block;padding:9px 11px;border-radius:9px;color:var(--texto);font-size:.88rem;line-height:1.35;text-decoration:none}
+.menu-gestion a:hover,.menu-gestion a.activo{background:var(--rosa-claro);color:var(--ciruela-osc)}
+.menu-gestion .grupo-menu{margin:13px 0 1px;padding:8px 11px 5px;color:var(--ciruela);font-weight:700;font-size:.88rem}
+.menu-gestion .submenu-gestion{padding:7px 11px 7px 25px;font-size:.82rem;color:var(--texto-suave)}
+.menu-gestion .menu-seccion{margin-top:8px;font-weight:600}
+.panel-pie{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.admin-avatar{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--rosa-claro);color:var(--ciruela);font-weight:700}
+.panel-pie a{margin-left:auto;color:var(--ciruela)}
+.zona-gestion{margin-left:246px;padding:clamp(18px,3.6vw,48px)}
+.dashboard-admin{max-width:1180px}
+.dashboard-topline,.configuracion-cabecera,.titulo-seccion-dashboard{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.sobrelinea{font-size:.7rem;font-weight:700;letter-spacing:.16em;color:var(--texto-suave)}
+.bienvenida-admin{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:34px 0 30px;border-bottom:1px solid var(--linea)}
+.bienvenida-admin h1{max-width:750px;margin:6px 0 10px;font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.7rem);line-height:1.2;color:var(--ciruela)}
+.bienvenida-admin p{max-width:680px;color:var(--texto-suave)}
+.saludo-admin{font-size:.88rem}
+.monograma-admin{display:grid;place-items:center;flex:0 0 100px;height:100px;border-radius:28px;background:linear-gradient(145deg,var(--rosa-claro),var(--lila));font-family:var(--serif);font-size:1.5rem;color:var(--ciruela)}
+.configuracion-inicio{margin-top:30px;padding:clamp(18px,3vw,30px);border:1px solid var(--linea);border-radius:20px;background:rgba(255,255,255,.82);box-shadow:var(--sombra)}
+.configuracion-cabecera h2,.titulo-seccion-dashboard h2{margin:5px 0;font-family:var(--serif);font-size:1.55rem;color:var(--ciruela)}
+.configuracion-cabecera p,.titulo-seccion-dashboard p{font-size:.88rem;color:var(--texto-suave)}
+.configuracion-cabecera>a,.titulo-seccion-dashboard>a{white-space:nowrap;color:var(--ciruela);font-size:.86rem;font-weight:600}
+.progreso-config{margin:24px 0 14px}
+.progreso-config>div:first-child{display:flex;justify-content:space-between;gap:10px;font-size:.86rem}
+.progreso-config>div:first-child span{color:var(--texto-suave)}
+.barra-progreso{height:7px;margin-top:10px;border-radius:10px;background:var(--rosa-claro);overflow:hidden}
+.barra-progreso span{display:block;height:100%;background:var(--ciruela);border-radius:10px}
+.tareas-config{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:26px}
+.tarea-config{display:flex;align-items:center;gap:13px;min-width:0;padding:15px 4px;border-bottom:1px solid var(--linea);text-decoration:none;color:var(--texto)}
+.tarea-config:hover strong{color:var(--ciruela);text-decoration:underline}
+.icono-tarea{display:grid;place-items:center;flex:0 0 39px;height:39px;border-radius:12px;background:var(--rosa-claro);color:var(--ciruela);font-size:1.15rem}
+.tarea-config>span:nth-child(2){display:grid;gap:3px;min-width:0}
+.tarea-config strong{font-size:.86rem;font-weight:600}
+.tarea-config small{font-size:.76rem;color:var(--texto-suave);line-height:1.4}
+.tarea-config>b{margin-left:auto;color:var(--ciruela)}
+.publicacion-resumen{display:flex;align-items:center;gap:15px;margin-top:20px;padding:15px;background:var(--fondo);border-radius:13px}
+.estado-privado{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:30px;background:white;font-size:.75rem}
+.estado-privado i{width:7px;height:7px;border-radius:50%;background:var(--rosa)}
+.publicacion-resumen>div{display:grid;gap:2px;min-width:0}
+.publicacion-resumen>div small{font-size:.75rem;color:var(--texto-suave)}
+.publicacion-resumen>a{margin-left:auto;font-size:.82rem;font-weight:600;white-space:nowrap}
+.resumen-dashboard{margin-top:35px}
+.titulo-seccion-dashboard{margin-bottom:16px}
+.metricas-dashboard{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.metrica-dashboard{display:grid;gap:7px;padding:18px;border:1px solid var(--linea);border-radius:15px;background:rgba(255,255,255,.86);text-decoration:none;color:var(--texto)}
+.metrica-dashboard>span{font-size:.8rem;color:var(--texto-suave)}
+.metrica-dashboard strong{font-family:var(--serif);font-size:1.55rem;color:var(--ciruela);overflow-wrap:anywhere}
+.metrica-dashboard small{font-size:.76rem;color:var(--ciruela)}
+.modulo-admin>h1{margin:8px 0;font-family:var(--serif);font-size:2rem;color:var(--ciruela)}
+.modulo-admin>p{margin-bottom:24px;color:var(--texto-suave)}
+.lista-paginas-admin{display:grid;gap:12px}
+.lista-paginas-admin article{display:flex;align-items:center;gap:15px;padding:16px;border:1px solid var(--linea);border-radius:15px;background:white}
+.lista-paginas-admin article>div:nth-child(2){display:grid;gap:3px;min-width:0}
+.lista-paginas-admin small{color:var(--texto-suave)}
+.lista-paginas-admin article>a{margin-left:auto;white-space:nowrap}
+.mini-pagina{display:grid;place-items:center;width:56px;height:56px;border-radius:12px;background:var(--rosa-claro);color:var(--ciruela);font-family:var(--serif);font-weight:700}
+.nota-admin{margin-top:22px;padding:14px 16px;border-left:3px solid var(--rosa);background:rgba(255,255,255,.6);font-size:.83rem;color:var(--texto-suave)}
+.vista-estilos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vista-estilos section,.recursos-bloque{padding:20px;border:1px solid var(--linea);border-radius:16px;background:white}
+.vista-estilos h2,.recursos-bloque h2{margin-bottom:14px;font-family:var(--serif);font-size:1.2rem;color:var(--ciruela)}
+.paleta-admin{display:flex;flex-wrap:wrap;gap:13px}
+.paleta-admin>div{display:grid;gap:6px;font-size:.7rem}
+.paleta-admin i{display:block;width:60px;height:48px;border:1px solid var(--linea);border-radius:9px}
+.muestra-tipografia{display:grid;gap:8px}
+.muestra-tipografia strong{font-family:var(--serif);font-size:2rem;color:var(--ciruela)}
+.muestra-tipografia span,.muestra-tipografia p{font-size:.82rem;color:var(--texto-suave)}
+.muestra-componentes{display:flex;align-items:center;flex-wrap:wrap;gap:12px}
+.etiqueta-demo,.borde-demo{padding:8px 12px;border-radius:10px;border:1px solid var(--linea);font-size:.8rem}
+.etiqueta-demo{background:var(--rosa-claro);color:var(--ciruela)}
+.boton-demo{padding:9px 14px;border-radius:30px;background:var(--ciruela);color:white;font-size:.8rem}
+.vista-estilos section:last-child{grid-column:1/-1}
+.recursos-bloque{margin-top:16px}
+.recursos-bloque>div:first-child{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.recursos-bloque>div:first-child span{font-size:.78rem;color:var(--texto-suave)}
+.recursos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:15px}
+.recursos-grid figure{min-width:0}
+.recursos-grid img{width:100%;height:120px;object-fit:cover;border-radius:10px;background:var(--fondo)}
+.recursos-grid figcaption{margin-top:5px;overflow-wrap:anywhere;font-size:.7rem;color:var(--texto-suave)}
+.recursos-bloque p{font-size:.86rem;color:var(--texto-suave)}
+.estado-informativo{display:inline-block;margin-top:12px;padding:5px 10px;border-radius:30px;background:var(--rosa-claro);font-size:.75rem;color:var(--ciruela)}
+@media(max-width:980px){.metricas-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){
+ .panel-lateral{width:100%;padding:10px 13px}
+ .panel-simbolo{width:auto;margin:0 0 7px;padding-left:4px}
+ .menu-gestion{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 7px}
+ .menu-gestion .grupo-menu{grid-column:1/-1;margin:7px 0 0}
+ .menu-gestion .submenu-gestion{padding-left:20px}
+ .menu-gestion .menu-seccion{margin-top:4px}
+ .panel-pie{display:flex;margin-top:10px}
+ .zona-gestion{margin-left:0;padding:20px 14px}
+ .tareas-config{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+ .dashboard-topline,.configuracion-cabecera,.titulo-seccion-dashboard{align-items:flex-start}
+ .bienvenida-admin{align-items:flex-start;padding:25px 0}
+ .monograma-admin{flex-basis:62px;height:62px;border-radius:18px;font-size:1rem}
+ .bienvenida-admin h1{font-size:1.75rem}
+ .configuracion-cabecera{flex-direction:column}
+ .publicacion-resumen{align-items:flex-start;flex-wrap:wrap}
+ .publicacion-resumen>a{margin-left:0}
+ .metricas-dashboard{grid-template-columns:1fr 1fr;gap:9px}
+ .metrica-dashboard{padding:13px}
+ .metrica-dashboard strong{font-size:1.25rem}
+ .vista-estilos{grid-template-columns:1fr}
+ .vista-estilos section:last-child{grid-column:auto}
+ .lista-paginas-admin article{gap:9px;padding:12px}
+ .mini-pagina{width:44px;height:44px}
+}
