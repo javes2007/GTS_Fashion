@@ -967,3 +967,7 @@ td.sin-precio {
  .lista-paginas-admin article{gap:9px;padding:12px}
  .mini-pagina{width:44px;height:44px}
 }
+
+/* Casilla de recordar sesión: respeta la paleta existente */
+.recordar-sesion{display:flex!important;align-items:center;gap:9px;margin:2px 0 8px;font-size:.86rem;color:var(--texto-suave);cursor:pointer}
+.recordar-sesion input{width:17px;height:17px;accent-color:var(--ciruela);flex:0 0 auto}
