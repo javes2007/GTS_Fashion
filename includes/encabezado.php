@@ -17,6 +17,7 @@ $admin_pagina=basename($_SERVER['PHP_SELF']??'');
 <a class="submenu-gestion <?php echo $admin_pagina==='recursos.php'?'activo':'';?>" href="recursos.php">Recursos</a>
 <a class="menu-seccion <?php echo in_array($admin_pagina,array('mostrar_datos.php','guardar.php','actualizar.php'))?'activo':'';?>" href="mostrar_datos.php">Productos y servicios</a>
 <a class="submenu-gestion" href="mostrar_datos.php">Inventario</a><a class="submenu-gestion" href="guardar.php">Añadir producto</a>
+<a class="submenu-gestion <?php echo $admin_pagina==='clientes.php'?'activo':'';?>" href="clientes.php">Clientes</a>
 <a class="menu-seccion <?php echo $admin_pagina==='pedidos.php'?'activo':'';?>" href="pedidos.php">Pedidos</a>
 <a class="menu-seccion <?php echo $admin_pagina==='informes.php'?'activo':'';?>" href="informes.php">Ventas e informes</a>
 <a class="menu-seccion" href="index.php" target="_blank" rel="noopener">Ver tienda ↗</a>
