@@ -1,0 +1,10 @@
+<?php
+require_once __DIR__.'/verificar_sesion.php';
+$db=conexion();$error='';$categorias=obtener_categorias($db);
+if($_SERVER['REQUEST_METHOD']==='POST'){$nombre=trim($_POST['nombre']??'');$descripcion=trim($_POST['descripcion']??'');$precio=(float)($_POST['precio']??0);$stock=(int)($_POST['stock']??0);$categoria_id=(int)($_POST['categoria_id']??0);$imagen=subir_imagen('imagen',$error);if($imagen===null)$imagen='';
+if($error===''&&($nombre===''||$categoria_id<1||$precio<0||$stock<0))$error='Completa los datos correctamente.';
+if($error===''){$stmt=$db->prepare('INSERT INTO productos(nombre,descripcion,precio,imagen,stock,categoria_id) VALUES(?,?,?,?,?,?)');$stmt->bind_param('ssdsii',$nombre,$descripcion,$precio,$imagen,$stock,$categoria_id);if($stmt->execute()){$stmt->close();$db->close();header('Location: mostrar_datos.php?msg='.urlencode('Producto registrado.'));exit;}$error='No se pudo guardar: '.$stmt->error;$stmt->close();}}
+$titulo='Registrar producto';require __DIR__.'/includes/encabezado.php';?>
+<main class="contenido"><h1>Registrar producto</h1><?php if($error):?><p class="error"><?php echo e($error);?></p><?php endif;?>
+<form class="formulario" method="post" enctype="multipart/form-data"><label>Nombre<input name="nombre" maxlength="100" required></label><label>Categoría<select name="categoria_id" required><option value="">Selecciona</option><?php while($c=$categorias->fetch_assoc()):?><option value="<?php echo (int)$c['id'];?>"><?php echo e($c['nombre']);?></option><?php endwhile;?></select></label><label>Descripción<textarea name="descripcion" required></textarea></label><label>Precio<input type="number" name="precio" min="0" step="0.01" required></label><label>Existencias<input type="number" name="stock" min="0" required></label><label>Imagen<input type="file" name="imagen" accept="image/jpeg,image/png,image/webp"></label><button class="boton">Guardar producto</button><a href="mostrar_datos.php">Cancelar</a></form></main>
+<?php $db->close();require __DIR__.'/includes/pie.php';?>
