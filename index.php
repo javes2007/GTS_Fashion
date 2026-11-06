@@ -14,13 +14,8 @@ $productos = $stmt->get_result();
 $titulo = 'Tu estilo, tu esencia';
 require __DIR__ . '/includes/encabezado.php';
 ?>
-<main class="contenido">
-    <section class="bienvenida">
-<img src="imagenes/portada.jpg" alt="Portada GTS Fashion" class="portada">
-    <h1>Bienvenidas a GTS Fashion</h1>
-    <p>Descubre tu estilo con nosotras.</p>
-</section>
-    <section id="catalogo"><h2>Nuestra colección</h2>
+<main class="contenido tienda">
+    <section id="catalogo" class="catalogo">
         <div class="filtros"><a href="index.php" class="<?php echo $filtro === 0 ? 'activo' : ''; ?>">Todo</a>
         <?php if ($categorias): while ($c = $categorias->fetch_assoc()): ?>
             <a href="index.php?categoria=<?php echo (int)$c['id']; ?>" class="<?php echo $filtro === (int)$c['id'] ? 'activo' : ''; ?>"><?php echo e($c['nombre']); ?></a>
