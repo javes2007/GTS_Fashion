@@ -16,3 +16,57 @@
 @media(max-width:560px){body{font-size:14px}.site-header{padding:18px 16px;gap:14px 8px}.marca{font-size:1.45rem}.acciones-header{gap:10px}.acciones-header>a:first-child{font-size:.78rem}.icono-social{display:none}.nav-principal{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding:4px 0 8px;gap:19px}.nav-principal a{font-size:.85rem}.contenido{width:calc(100% - 28px);margin:22px auto 48px}.filtros{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding:8px 0 12px}.filtros a{flex:0 0 auto;padding:0 13px;font-size:.88rem}.productos{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.informacion-producto{padding:10px}.informacion-producto h3{font-size:.9rem}.informacion-producto p{font-size:.82rem}.pie-contenido{grid-template-columns:1fr}.pie-copyright{grid-column:1}.buscador{flex-wrap:wrap}}
 @media(max-width:360px){.acciones-header>a:first-child{max-width:85px;overflow:hidden;text-overflow:ellipsis}.productos{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+
+/* Navegación de gestión: conserva la paleta original de GTS Fashion. */
+.vista-gestion{background:#fff}
+.panel-lateral{position:fixed;inset:0 auto 0 0;width:208px;display:flex;flex-direction:column;padding:20px 18px 16px;border-right:1px solid var(--line);background:#fff;z-index:20}
+.panel-simbolo{display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin:0 0 32px;text-decoration:none;font-weight:700;letter-spacing:-.08em}
+.menu-gestion{display:flex;flex-direction:column;gap:0;overflow-y:auto}
+.menu-gestion a,.grupo-menu{display:block;padding:8px 7px;color:var(--ink);text-decoration:none;font-size:.9rem;line-height:1.35;border-radius:5px}
+.menu-gestion a:hover,.menu-gestion a:focus-visible{background:var(--soft);text-decoration:underline}
+.grupo-menu{margin-top:8px;font-weight:600}
+.panel-pie{margin-top:auto;padding:14px 7px 0;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted);overflow-wrap:anywhere}
+.zona-gestion{min-height:100vh;margin-left:208px;padding:28px clamp(18px,4vw,56px)}
+.vista-gestion .contenido{width:min(100%,var(--content));margin:0 auto 55px}
+.vista-gestion .login-box{margin:30px auto}
+.formulario-acceso{display:grid;gap:14px}
+.formulario-acceso label{display:grid;gap:6px}
+.registro-box,.checkout-box{width:min(calc(100% - 32px),620px)}
+.agregar-carrito{display:flex;gap:8px;align-items:center;margin-top:12px}
+.agregar-carrito input{width:68px;flex:0 0 68px;padding:9px}
+.agregar-carrito .boton{flex:1;min-width:0;padding:9px 10px;font-size:.84rem}
+.disponibilidad{font-size:.78rem!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.boton-secundario{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.enlace-boton{border:0;background:transparent;color:var(--ink);text-decoration:underline;cursor:pointer}
+.carrito-producto{display:flex;align-items:center;gap:12px;min-width:190px}
+.carrito-producto img{width:54px;height:68px;object-fit:cover}
+.resumen-compra{margin:22px 0 0 auto;width:min(100%,420px);padding:18px;border:1px solid var(--line);border-radius:8px}
+.resumen-compra>strong{font-size:1.1rem}
+.resumen-compra .fila-botones{justify-content:flex-end}
+.resumen-pedido{padding:15px;margin:18px 0;border:1px solid var(--line);border-radius:8px}
+.resumen-pedido p{margin:7px 0;font-size:.9rem}
+.estado-pedido{display:grid;gap:7px;min-width:145px}
+.checkout-box textarea{min-height:82px}
+@media(max-width:760px){
+ .panel-lateral{position:relative;width:100%;height:auto;min-height:0;padding:10px 14px;border-right:0;border-bottom:1px solid var(--line)}
+ .panel-simbolo{margin:0 0 8px}
+ .menu-gestion{flex-direction:row;flex-wrap:wrap;gap:3px 8px;overflow:visible}
+ .menu-gestion a,.grupo-menu{padding:7px;font-size:.82rem}
+ .grupo-menu{width:100%;margin-top:3px;padding-left:7px}
+ .panel-pie{display:none}
+ .zona-gestion{margin-left:0;padding:22px 16px}
+ .vista-gestion .contenido{margin-bottom:35px}
+}
+@media(max-width:560px){
+ .agregar-carrito{align-items:stretch;flex-wrap:wrap}
+ .agregar-carrito input{width:62px;flex-basis:62px}
+ .agregar-carrito .boton{font-size:.78rem}
+ .carrito-producto{gap:8px}
+ .carrito-producto img{width:42px;height:56px}
+ .resumen-compra{width:100%}
+ .resumen-compra .fila-botones{display:grid}
+ .resumen-compra .boton{width:100%}
+ .registro-box,.checkout-box{padding:18px}
+}
