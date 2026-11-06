@@ -21,7 +21,7 @@ require __DIR__ . '/includes/encabezado.php';
     <p>Descubre tu estilo con nosotras.</p>
 </section>
     <section id="catalogo"><h2>Nuestra colección</h2>
-        <div class="filtros"><a href="index.php" class="<?php echo $filtro === 0 ? 'activo' : ''; ?>">Todas</a>
+        <div class="filtros"><a href="index.php" class="<?php echo $filtro === 0 ? 'activo' : ''; ?>">Todo</a>
         <?php if ($categorias): while ($c = $categorias->fetch_assoc()): ?>
             <a href="index.php?categoria=<?php echo (int)$c['id']; ?>" class="<?php echo $filtro === (int)$c['id'] ? 'activo' : ''; ?>"><?php echo e($c['nombre']); ?></a>
         <?php endwhile; endif; ?></div>
