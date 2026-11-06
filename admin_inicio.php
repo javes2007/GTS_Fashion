@@ -8,7 +8,7 @@ $pendientes=0;$r=$db->query("SELECT COUNT(*) AS total FROM pedidos WHERE estado=
 $admin_nombre=$_SESSION['administrador_usuario']??'Administrador';$titulo='Inicio';require __DIR__.'/includes/encabezado.php';
 ?>
 <main class="contenido dashboard-admin">
-<div class="dashboard-topline"><span class="sobrelinea">GTS FASHION · CENTRO DE CONTROL</span><a class="boton boton-secundario" href="index.php" target="_blank" rel="noopener">Ver sitio web ↗</a></div>
+<div class="dashboard-topline"><span class="sobrelinea">GTS FASHION · CENTRO DE CONTROL</span><a class="boton boton-secundario" href="index.php">Ver sitio web ↗</a></div>
 <section class="bienvenida-admin"><div><p class="saludo-admin">Tu espacio de trabajo</p><h1>Te damos la bienvenida, <?php echo e($admin_nombre);?></h1><p>Desde aquí puedes personalizar tu tienda, organizar tus productos y gestionar tus ventas.</p></div><div class="monograma-admin">GTS</div></section>
 <section class="configuracion-inicio"><div class="configuracion-cabecera"><div><span class="sobrelinea">EMPIEZA AQUÍ</span><h2>Personalizar la página de inicio</h2><p>Prepara cada parte de tu tienda para ofrecer una experiencia coherente.</p></div><a href="paginas.php">Editar sitio <span aria-hidden="true">↗</span></a></div>
 <div class="progreso-config"><div><strong>Empezar</strong><span>0 / 7 completados</span></div><div class="barra-progreso"><span style="width:0%"></span></div></div>
