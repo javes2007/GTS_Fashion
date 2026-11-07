@@ -18,7 +18,7 @@ if($es_cliente){$n=conexion();$s=$n->prepare('SELECT foto_perfil FROM clientes W
 <a class="submenu-gestion <?php echo $admin_pagina==='estilos_paginas.php'?'activo':'';?>" href="estilos_paginas.php">Estilos de páginas</a>
 <a class="submenu-gestion <?php echo $admin_pagina==='recursos.php'?'activo':'';?>" href="recursos.php">Recursos</a>
 <a class="menu-seccion <?php echo in_array($admin_pagina,array('mostrar_datos.php','guardar.php','actualizar.php'))?'activo':'';?>" href="mostrar_datos.php">Productos y servicios</a>
-<a class="submenu-gestion" href="mostrar_datos.php">Inventario</a><a class="submenu-gestion" href="guardar.php">Añadir producto</a>
+<a class="submenu-gestion" href="mostrar_datos.php">Inventario</a><a class="submenu-gestion" href="guardar.php">Añadir producto</a><a class="submenu-gestion <?php echo $admin_pagina==='categorias.php'?'activo':'';?>" href="categorias.php">Categorías</a>
 <a class="submenu-gestion <?php echo $admin_pagina==='clientes.php'?'activo':'';?>" href="clientes.php">Clientes</a>
 <a class="menu-seccion <?php echo $admin_pagina==='pedidos.php'?'activo':'';?>" href="pedidos.php">Pedidos</a>
 <a class="menu-seccion <?php echo $admin_pagina==='informes.php'?'activo':'';?>" href="informes.php">Ventas e informes</a>
