@@ -44,6 +44,13 @@ function borrar_imagen($ruta) {
     if (!$ruta) return; $base=realpath(__DIR__.'/uploads'); $archivo=realpath(__DIR__.'/'.$ruta);
     if ($base && $archivo && strpos($archivo,$base.DIRECTORY_SEPARATOR)===0 && is_file($archivo)) unlink($archivo);
 }
+function csrf_token() {
+    if (empty($_SESSION['csrf_token'])) $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['csrf_token'];
+}
+function csrf_validar($token) {
+    return is_string($token) && !empty($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+}
 function exigir_sesion() {
     if (empty($_SESSION['administrador_id'])) { header('Location: login.php'); exit; }
 }
