@@ -8,7 +8,8 @@ $ids=array_map('intval',array_keys($_SESSION['carrito']));$lista=implode(',',arr
 if($lista!==''){$res=$db->query("SELECT id,nombre,precio,stock FROM productos WHERE id IN ($lista)");while($p=$res->fetch_assoc()){$cant=min((int)$_SESSION['carrito'][$p['id']],(int)$p['stock']);if($cant>0){$p['cantidad']=$cant;$p['subtotal']=$cant*(float)$p['precio'];$items[]=$p;$total+=$p['subtotal'];}}}
 if(!$items){$_SESSION['carrito']=array();$db->close();header('Location: carrito.php');exit;}
 $error='';
-if($_SERVER['REQUEST_METHOD']==='POST'){
+if($_SERVER['REQUEST_METHOD']==='POST'&&!csrf_validar($_POST['csrf']??'')){ $error='Formulario vencido. Recarga e inténtalo de nuevo.'; }
+if($_SERVER['REQUEST_METHOD']==='POST'&&csrf_validar($_POST['csrf']??'')){
     $nombre=trim($_POST['nombre']??'');$apellidos=trim($_POST['apellidos']??'');$telefono=trim($_POST['telefono']??'');
     $direccion=trim($_POST['direccion']??'');$barrio=trim($_POST['barrio']??'');$ciudad=trim($_POST['ciudad']??'');
     $departamento=trim($_POST['departamento']??'');$postal=trim($_POST['codigo_postal']??'');$referencia=trim($_POST['referencia']??'');
@@ -35,7 +36,7 @@ $titulo='Datos de entrega';require __DIR__.'/includes/encabezado.php';
 <main class="login-box checkout-box"><h1>Finalizar compra</h1><p>Completa los datos de la persona que recibirá el pedido. El pago se realiza contra entrega.</p>
 <?php if($error):?><p class="error"><?php echo e($error);?></p><?php endif;?>
 <div class="resumen-pedido"><strong>Resumen del pedido</strong><?php foreach($items as $it):?><p><?php echo e($it['nombre']);?> × <?php echo (int)$it['cantidad'];?> — <?php echo e(precio_texto($it['subtotal']));?></p><?php endforeach;?><strong>Total: <?php echo e(precio_texto($total));?></strong></div>
-<form method="post" class="formulario-acceso">
+<form method="post" class="formulario-acceso"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>">
 <label>Nombres<input name="nombre" required maxlength="100" value="<?php echo e($_POST['nombre']??$cliente['nombre']);?>"></label>
 <label>Apellidos<input name="apellidos" maxlength="100" value="<?php echo e($_POST['apellidos']??$cliente['apellidos']);?>"></label>
 <label>Teléfono de contacto<input name="telefono" required maxlength="20" value="<?php echo e($_POST['telefono']??$cliente['telefono']);?>"></label>
