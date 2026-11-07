@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__.'/verificar_sesion.php';$id=(int)($_GET['id']??0);$db=conexion();
-$s=$db->prepare('SELECT p.*,CONCAT(COALESCE(c.nombre,\'\'),\' \,\',COALESCE(c.apellidos,\'\')) cliente,c.correo FROM pedidos p INNER JOIN clientes c ON c.id=p.cliente_id WHERE p.id=?');$s->bind_param('i',$id);$s->execute();$pedido=$s->get_result()->fetch_assoc();$s->close();
+$s=$db->prepare("SELECT p.*,CONCAT_WS(' ',NULLIF(c.nombre,''),NULLIF(c.apellidos,'')) AS cliente,c.correo FROM pedidos p INNER JOIN clientes c ON c.id=p.cliente_id WHERE p.id=?");
 if(!$pedido){$db->close();header('Location: pedidos.php');exit;}
 $s=$db->prepare('SELECT d.id,d.cantidad,d.precio,pr.nombre,pr.imagen FROM detalle_pedido d LEFT JOIN productos pr ON pr.id=d.producto_id WHERE d.pedido_id=? ORDER BY d.id');$s->bind_param('i',$id);$s->execute();$items=$s->get_result();
 $titulo='Detalle del pedido';require __DIR__.'/includes/encabezado.php';
