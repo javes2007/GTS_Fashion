@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__.'/conectar.php'; exigir_cliente();
 $db=conexion();$id=(int)$_SESSION['cliente_id'];$error='';$mensaje='';
-if($_SERVER['REQUEST_METHOD']==='POST'){
+if($_SERVER['REQUEST_METHOD']==='POST'&&!csrf_validar($_POST['csrf']??'')){ $error='Formulario vencido. Recarga e inténtalo de nuevo.'; }
+if($_SERVER['REQUEST_METHOD']==='POST'&&csrf_validar($_POST['csrf']??'')){
     if(isset($_POST['eliminar_foto'])){
         $fotoStmt=$db->prepare('SELECT foto_perfil FROM clientes WHERE id=?');$fotoStmt->bind_param('i',$id);$fotoStmt->execute();$fotoRow=$fotoStmt->get_result()->fetch_assoc();$fotoStmt->close();
         if(!empty($fotoRow['foto_perfil'])){$base=realpath(__DIR__.'/uploads/perfiles');$real=realpath(__DIR__.'/'.$fotoRow['foto_perfil']);if($base&&$real&&strpos($real,$base.DIRECTORY_SEPARATOR)===0&&is_file($real))@unlink($real);}
@@ -42,7 +43,7 @@ $titulo='Mi perfil';require __DIR__.'/includes/encabezado.php';
 ?>
 <main class="login-box registro-box"><h1>Mi perfil</h1><p>Edita tus datos cuando lo necesites.</p>
 <?php if($mensaje):?><p class="aviso"><?php echo e($mensaje);?></p><?php endif;?><?php if($error):?><p class="error"><?php echo e($error);?></p><?php endif;?>
-<div class="perfil-foto-panel"><div class="perfil-foto-circulo"><?php if(!empty($cliente['foto_perfil'])):?><img src="<?php echo e($cliente['foto_perfil']);?>" alt="Fotografía de perfil"><?php else:?><span><?php echo e(mb_strtoupper(mb_substr($cliente['usuario'],0,1)));?></span><?php endif;?></div><div><strong>Fotografía de perfil</strong><p>Imagen JPG, PNG o WEBP. Máximo 4 MB.</p><form method="post" enctype="multipart/form-data" class="formulario-foto"><input type="file" name="foto_perfil" accept="image/jpeg,image/png,image/webp" required><button class="boton" type="submit">Subir fotografía</button></form><?php if(!empty($cliente['foto_perfil'])):?><form method="post"><button class="boton boton-chico boton-peligro" type="submit" name="eliminar_foto" value="1">Eliminar fotografía</button></form><?php endif;?></div></div><form method="post" class="formulario-acceso">
+<div class="perfil-foto-panel"><div class="perfil-foto-circulo"><?php if(!empty($cliente['foto_perfil'])):?><img src="<?php echo e($cliente['foto_perfil']);?>" alt="Fotografía de perfil"><?php else:?><span><?php echo e(mb_strtoupper(mb_substr($cliente['usuario'],0,1)));?></span><?php endif;?></div><div><strong>Fotografía de perfil</strong><p>Imagen JPG, PNG o WEBP. Máximo 4 MB.</p><form method="post" enctype="multipart/form-data" class="formulario-foto"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>"><input type="file" name="foto_perfil" accept="image/jpeg,image/png,image/webp" required><button class="boton" type="submit">Subir fotografía</button></form><?php if(!empty($cliente['foto_perfil'])):?><form method="post"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>"><button class="boton boton-chico boton-peligro" type="submit" name="eliminar_foto" value="1">Eliminar fotografía</button></form><?php endif;?></div></div><form method="post" class="formulario-acceso"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>">
 <label>Nombre de usuario<input name="usuario" required minlength="3" maxlength="30" value="<?php echo e($_POST['usuario']??$cliente['usuario']);?>"></label>
 <label>Nombre<input name="nombre" maxlength="100" value="<?php echo e($_POST['nombre']??$cliente['nombre']);?>"></label>
 <label>Apellidos<input name="apellidos" maxlength="100" value="<?php echo e($_POST['apellidos']??$cliente['apellidos']);?>"></label>
