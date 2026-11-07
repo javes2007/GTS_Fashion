@@ -4,10 +4,10 @@ $db = conexion();
 $filtro = isset($_GET['categoria']) ? (int)$_GET['categoria'] : 0;
 $categorias = obtener_categorias($db);
 if ($filtro > 0) {
-    $stmt = $db->prepare('SELECT p.id,p.nombre,p.descripcion,p.precio,p.imagen,p.stock,c.nombre AS categoria FROM productos p LEFT JOIN categorias c ON c.id=p.categoria_id WHERE p.categoria_id=? AND p.stock>0 ORDER BY CASE WHEN LOWER(COALESCE(c.nombre,'')) LIKE '%vestid%' THEN 0 ELSE 1 END, p.id DESC');
+    $stmt = $db->prepare("SELECT p.id,p.nombre,p.descripcion,p.precio,p.imagen,p.stock,c.nombre AS categoria FROM productos p LEFT JOIN categorias c ON c.id=p.categoria_id WHERE p.categoria_id=? AND p.stock>0 ORDER BY CASE WHEN LOWER(COALESCE(c.nombre,'')) LIKE '%vestid%' THEN 0 ELSE 1 END, p.id DESC");
     $stmt->bind_param('i', $filtro);
 } else {
-    $stmt = $db->prepare('SELECT p.id,p.nombre,p.descripcion,p.precio,p.imagen,p.stock,c.nombre AS categoria FROM productos p LEFT JOIN categorias c ON c.id=p.categoria_id WHERE p.stock>0 ORDER BY CASE WHEN LOWER(COALESCE(c.nombre,'')) LIKE '%vestid%' THEN 0 ELSE 1 END, p.id DESC');
+    $stmt = $db->prepare("SELECT p.id,p.nombre,p.descripcion,p.precio,p.imagen,p.stock,c.nombre AS categoria FROM productos p LEFT JOIN categorias c ON c.id=p.categoria_id WHERE p.stock>0 ORDER BY CASE WHEN LOWER(COALESCE(c.nombre,'')) LIKE '%vestid%' THEN 0 ELSE 1 END, p.id DESC");
 }
 $stmt->execute(); $productos = $stmt->get_result();
 $titulo = 'Tu estilo, tu esencia'; require __DIR__ . '/includes/encabezado.php';
