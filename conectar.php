@@ -50,4 +50,4 @@ function exigir_sesion() {
 function exigir_cliente() {
     if (empty($_SESSION['cliente_id'])) { header('Location: login.php?next=checkout'); exit; }
 }
-function obtener_categorias($conexion) { $resultado=$conexion->query('SELECT id,nombre FROM categorias ORDER BY nombre'); return $resultado ? $resultado : false; }
+function obtener_categorias($conexion) { $resultado=$conexion->query("SELECT id,nombre FROM categorias ORDER BY CASE WHEN LOWER(TRIM(nombre)) LIKE '%vestido%' THEN 0 ELSE 1 END, nombre ASC"); return $resultado ? $resultado : false; }
