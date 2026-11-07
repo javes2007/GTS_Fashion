@@ -25,7 +25,7 @@ $titulo='Crear cuenta'; require __DIR__.'/includes/encabezado.php';
 <main class="login-box registro-box">
 <h1>Crear cuenta</h1><p>Regístrate con un nombre de usuario y una contraseña.</p>
 <?php if($error):?><p class="error"><?php echo e($error);?></p><?php endif;?>
-<form method="post" class="formulario-acceso">
+<form method="post" class="formulario-acceso"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>">
 <label>Nombre de usuario<input name="usuario" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" required autocomplete="username" value="<?php echo e($_POST['usuario']??'');?>"></label>
 <label>Contraseña<span class="campo-password"><input id="clave" type="password" name="clave" minlength="8" required autocomplete="new-password"><button class="mostrar-clave" type="button" data-toggle-password="clave" aria-label="Mostrar contraseña" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
 <label>Confirmar contraseña<span class="campo-password"><input id="confirmar" type="password" name="confirmar" minlength="8" required autocomplete="new-password"><button class="mostrar-clave" type="button" data-toggle-password="confirmar" aria-label="Mostrar contraseña" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
