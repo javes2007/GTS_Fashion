@@ -1,2 +1,9 @@
 <?php
-require_once __DIR__.'/verificar_sesion.php';$desde=$_GET['desde']??date('Y-m-01');$hasta=$_GET['hasta']??date('Y-m-d');if($desde>$hasta)die('Rango de fechas no válido.');$db=conexion();$stmt=$db->prepare('SELECT p.id,p.fecha,CONCAT(c.nombre," ",c.apellidos) cliente,p.estado,p.total FROM pedidos p INNER JOIN clientes c ON c.id=p.cliente_id WHERE DATE(p.fecha) BETWEEN ? AND ? ORDER BY p.fecha DESC');$stmt->bind_param('ss',$desde,$hasta);$stmt->execute();$resultado=$stmt->get_result();header('Content-Type: text/csv; charset=utf-8');header('Content-Disposition: attachment; filename="ventas_'.$desde.'_a_'.$hasta.'.csv"');$salida=fopen('php://output','w');fwrite($salida,"\xEF\xBB\xBF");fputcsv($salida,array('Pedido','Fecha','Cliente','Estado','Total'));while($fila=$resultado->fetch_assoc())fputcsv($salida,$fila);fclose($salida);$stmt->close();$db->close();exit;?>
+require_once __DIR__.'/verificar_sesion.php';
+$desde=$_GET['desde']??date('Y-m-01');$hasta=$_GET['hasta']??date('Y-m-d');
+$validar=function($fecha){$d=DateTime::createFromFormat('!Y-m-d',$fecha);return $d&&$d->format('Y-m-d')===$fecha;};
+if(!$validar($desde)||!$validar($hasta)||$desde>$hasta){http_response_code(400);exit('Rango de fechas no válido.');}
+$db=conexion();$stmt=$db->prepare('SELECT p.id,p.fecha,CONCAT_WS(" ",NULLIF(c.nombre,""),NULLIF(c.apellidos,"")) cliente,p.estado,p.total FROM pedidos p INNER JOIN clientes c ON c.id=p.cliente_id WHERE DATE(p.fecha) BETWEEN ? AND ? ORDER BY p.fecha DESC');$stmt->bind_param('ss',$desde,$hasta);$stmt->execute();$resultado=$stmt->get_result();
+header('Content-Type: text/csv; charset=utf-8');header('Content-Disposition: attachment; filename="ventas_'.$desde.'_a_'.$hasta.'.csv"');$salida=fopen('php://output','w');fwrite($salida,"\xEF\xBB\xBF");fputcsv($salida,array('Pedido','Fecha','Cliente','Estado','Total'));
+while($fila=$resultado->fetch_assoc()){$fila=array_values($fila);foreach($fila as &$valor){$valor=(string)$valor;if(preg_match('/^[=+@\\-\\t\\r]/',$valor))$valor="'".$valor;}unset($valor);fputcsv($salida,$fila);}
+fclose($salida);$stmt->close();$db->close();exit;
