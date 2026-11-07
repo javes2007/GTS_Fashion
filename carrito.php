@@ -2,7 +2,8 @@
 require_once __DIR__.'/conectar.php';
 if (!isset($_SESSION['carrito'])||!is_array($_SESSION['carrito'])) $_SESSION['carrito']=array();
 $mensaje=''; $error='';
-if ($_SERVER['REQUEST_METHOD']==='POST') {
+if ($_SERVER['REQUEST_METHOD']==='POST' && !csrf_validar($_POST['csrf']??'')) $error='Formulario vencido. Recarga e inténtalo de nuevo.';
+if ($_SERVER['REQUEST_METHOD']==='POST' && csrf_validar($_POST['csrf']??'')) {
     $accion=$_POST['accion']??'';
     if ($accion==='agregar') {
         $id=(int)($_POST['producto_id']??0); $cantidad=max(1,(int)($_POST['cantidad']??1));
@@ -27,10 +28,10 @@ $titulo='Tu carrito'; require __DIR__.'/includes/encabezado.php';
 <?php if($mensaje):?><p class="aviso"><?php echo e($mensaje);?></p><?php endif;?><?php if($error):?><p class="error"><?php echo e($error);?></p><?php endif;?>
 <?php if(!$items):?><p class="vacio">Tu carrito está vacío.</p><a class="boton" href="index.php#catalogo">Seguir comprando</a>
 <?php else:?>
-<form method="post" class="tabla-scroll"><input type="hidden" name="accion" value="actualizar"><table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th></th></tr></thead><tbody>
+<form method="post" class="tabla-scroll"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>"><input type="hidden" name="accion" value="actualizar"><table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th></th></tr></thead><tbody>
 <?php foreach($items as $p):?><tr><td class="carrito-producto"><?php echo imagen_prenda($p['imagen'],$p['nombre']);?><strong><?php echo e($p['nombre']);?></strong></td><td><?php echo e(precio_texto($p['precio']));?></td><td><input type="number" name="cantidades[<?php echo (int)$p['id'];?>]" min="0" max="<?php echo (int)$p['stock'];?>" value="<?php echo (int)$p['cantidad'];?>" aria-label="Cantidad"></td><td><?php echo e(precio_texto($p['subtotal']));?></td><td><button class="enlace-boton" form="quitar-<?php echo (int)$p['id'];?>">Quitar</button></td></tr><?php endforeach;?>
 </tbody></table><button class="boton boton-secundario" type="submit">Actualizar carrito</button></form>
-<?php foreach($items as $p):?><form id="quitar-<?php echo (int)$p['id'];?>" method="post"><input type="hidden" name="accion" value="quitar"><input type="hidden" name="producto_id" value="<?php echo (int)$p['id'];?>"></form><?php endforeach;?>
-<div class="resumen-compra"><strong>Total: <?php echo e(precio_texto($total));?></strong><div class="fila-botones"><form method="post"><input type="hidden" name="accion" value="cancelar"><button class="boton boton-secundario" type="submit">Cancelar compra</button></form><a class="boton" href="<?php echo !empty($_SESSION['cliente_id'])?'checkout.php':'login.php?next=checkout';?>">Continuar con la compra</a></div></div>
+<?php foreach($items as $p):?><form id="quitar-<?php echo (int)$p['id'];?>" method="post"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>"><input type="hidden" name="accion" value="quitar"><input type="hidden" name="producto_id" value="<?php echo (int)$p['id'];?>"></form><?php endforeach;?>
+<div class="resumen-compra"><strong>Total: <?php echo e(precio_texto($total));?></strong><div class="fila-botones"><form method="post"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>"><input type="hidden" name="accion" value="cancelar"><button class="boton boton-secundario" type="submit">Cancelar compra</button></form><a class="boton" href="<?php echo !empty($_SESSION['cliente_id'])?'checkout.php':'login.php?next=checkout';?>">Continuar con la compra</a></div></div>
 <?php endif;?></main>
 <?php require __DIR__.'/includes/pie.php';?>
