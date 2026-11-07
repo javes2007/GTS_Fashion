@@ -2,7 +2,7 @@
 require_once __DIR__.'/conectar.php';
 if (!empty($_SESSION['cliente_id'])) { header('Location: index.php'); exit; }
 $error='';
-if ($_SERVER['REQUEST_METHOD']==='POST') {
+if ($_SERVER['REQUEST_METHOD']==='POST' && csrf_validar($_POST['csrf']??'')) {
     $usuario=trim($_POST['usuario']??''); $clave=$_POST['clave']??''; $confirmar=$_POST['confirmar']??'';
     if (!preg_match('/^[a-zA-Z0-9_.-]{3,30}$/',$usuario)) $error='El usuario debe tener entre 3 y 30 caracteres: letras, números, punto, guion o guion bajo.';
     elseif (strlen($clave)<8) $error='La contraseña debe tener al menos 8 caracteres.';
