@@ -17,6 +17,9 @@ if (session_status() === PHP_SESSION_NONE) {
 function conexion() {
     $config = array('host'=>'localhost','usuario'=>'root','clave'=>'','base'=>'gts_fashion');
     $archivo = __DIR__ . '/config.local.php';
+    $servidor = strtolower($_SERVER['SERVER_NAME'] ?? 'localhost');
+    $es_local = in_array($servidor, array('localhost','127.0.0.1','::1'), true);
+    if (!$es_local && !file_exists($archivo)) die('Falta config.local.php. Configura las credenciales MySQL del hosting.');
     if (file_exists($archivo)) { $local = require $archivo; if (is_array($local)) $config = array_merge($config, $local); }
     $db = new mysqli($config['host'],$config['usuario'],$config['clave'],$config['base']);
     if ($db->connect_error) die('No se pudo conectar con MySQL. Revisa config.local.php.');
