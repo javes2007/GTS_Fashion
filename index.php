@@ -27,7 +27,7 @@ $titulo = 'Tu estilo, tu esencia'; require __DIR__ . '/includes/encabezado.php';
                     <h3><?php echo e($p['nombre']); ?></h3><p><?php echo e($p['descripcion']); ?></p>
                     <p class="precio"><?php echo e(precio_texto($p['precio'])); ?></p>
                     <p class="disponibilidad"><?php echo (int)$p['stock']; ?> disponibles</p>
-                    <form method="post" action="carrito.php" class="agregar-carrito">
+                    <form method="post" action="carrito.php" class="agregar-carrito"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>">
                         <input type="hidden" name="accion" value="agregar"><input type="hidden" name="producto_id" value="<?php echo (int)$p['id']; ?>">
                         <label class="sr-only" for="cantidad-<?php echo (int)$p['id']; ?>">Cantidad</label>
                         <input id="cantidad-<?php echo (int)$p['id']; ?>" type="number" name="cantidad" min="1" max="<?php echo (int)$p['stock']; ?>" value="1">
