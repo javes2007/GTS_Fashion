@@ -6,7 +6,7 @@ $error = '';
 $mensaje = '';
 if ($clave_configurada === '' || $clave_configurada === 'CAMBIA-ESTA-CLAVE-DE-INSTALACION') {
     $error = 'Configura primero una clave privada setup_key en config.local.php.';
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && csrf_validar($_POST['csrf'] ?? '')) {
     $llave = $_POST['llave'] ?? '';
     $usuario = trim($_POST['usuario'] ?? '');
     $clave = $_POST['clave'] ?? '';
@@ -33,7 +33,7 @@ require __DIR__ . '/includes/encabezado.php';
     <p>Después de crear la cuenta, elimina este archivo del servidor o cambia setup_key.</p>
     <?php if ($error): ?><p class="error"><?php echo e($error); ?></p><?php endif; ?>
     <?php if ($mensaje): ?><p class="aviso"><?php echo e($mensaje); ?></p><?php endif; ?>
-    <form method="post">
+    <form method="post"><input type="hidden" name="csrf" value="<?php echo e(csrf_token());?>">
         <label>Clave de instalación<input type="password" name="llave" required></label>
         <label>Usuario administrador<input name="usuario" required></label>
         <label>Contraseña (mínimo 8 caracteres)<input type="password" name="clave" minlength="8" required></label>
