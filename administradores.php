@@ -2,10 +2,10 @@
 require_once __DIR__.'/verificar_sesion.php';$db=conexion();$error='';$mensaje='';$actual=(int)$_SESSION['administrador_id'];
 if($_SERVER['REQUEST_METHOD']==='POST'){
  if(!csrf_validar($_POST['csrf']??''))$error='Formulario vencido. Recarga e inténtalo de nuevo.';
- else{$accion=$_POST['accion']??'';$id=(int)($_POST['id']??0);$usuario=trim($_POST['usuario']??'');$correo=trim($_POST['correo']??'');$clave=$_POST['clave']??'';
+ else{$accion=$_POST['accion']??'';$id=(int)($_POST['id']??0);$usuario=trim($_POST['usuario']??'');$correo=trim($_POST['correo']??'');if($correo==='')$correo=null;$clave=$_POST['clave']??'';
   if($accion==='guardar'){
    if(!preg_match('/^[a-zA-Z0-9_.-]{3,50}$/',$usuario))$error='El usuario debe tener entre 3 y 50 caracteres válidos.';
-   elseif($correo!==''&&!filter_var($correo,FILTER_VALIDATE_EMAIL))$error='Correo electrónico no válido.';
+   elseif($correo!==null&&!filter_var($correo,FILTER_VALIDATE_EMAIL))$error='Correo electrónico no válido.';
    elseif($id===0&&strlen($clave)<8)$error='La contraseña inicial debe tener al menos 8 caracteres.';
    elseif($clave!==''&&strlen($clave)<8)$error='La contraseña debe tener al menos 8 caracteres.';
    else{
